@@ -1,2 +1,4 @@
 wire/wire.go
 .env*
+.git*
+build

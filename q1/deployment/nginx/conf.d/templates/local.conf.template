@@ -1,0 +1,17 @@
+server {
+    listen 80;
+    listen [::]:80;
+    
+    server_name go.$NGINX_HOST;
+
+    include /etc/nginx/conf.d/includes/proxy-go.conf;
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    
+    server_name nest.$NGINX_HOST;
+
+    include /etc/nginx/conf.d/includes/proxy-nest.conf;
+}

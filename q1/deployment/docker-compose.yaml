@@ -1,0 +1,41 @@
+name: template
+networks:
+  net1:
+
+services:
+  nginx:
+    extends:
+      file: ./nginx/docker-compose.yaml
+      service: nginx
+    ports:
+      - 80:80
+    restart: unless-stopped
+    networks:
+      net1:
+
+  go-app:
+    image: go-app:${TAG}
+    build:
+      dockerfile: Dockerfile
+      context: "../go-template/"
+    # ports:
+    #   - "3000:3000"
+    environment:
+      - BIND_PORT=3000
+      - BIND_HOST=0.0.0.0 # For making go app accessible from outside docker
+    networks:
+      net1:
+        aliases:
+          - go-app
+
+  nest-app:
+    image: nest-app:${TAG}
+    build:
+      dockerfile: Dockerfile
+      context: "../nest-template/"
+    # ports:
+    #   - "4000:3000"
+    networks:
+      net1:
+        aliases:
+          - nest-app

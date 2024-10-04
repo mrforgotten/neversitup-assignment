@@ -1,0 +1,9 @@
+services:
+  nginx:
+    image: nginx:latest
+    environment:
+      - NGINX_HOST=${NGINX_HOST}
+      - TZ=Asia/Bangkok
+    volumes:
+      - ./conf.d/templates/${NGINX_CONF}.template:/etc/nginx/templates/${NGINX_CONF}.template:ro
+      - ./conf.d/includes:/etc/nginx/conf.d/includes:ro

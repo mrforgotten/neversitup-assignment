@@ -11,11 +11,11 @@ RUN go mod download
 
 # Copy the source code. Note the slash at the end, as explained in
 # https://docs.docker.com/reference/dockerfile/#copy
-COPY cmd ./
-COPY server ./
+COPY cmd ./cmd/
+COPY server ./server/
 
 # Build
-RUN CGO_ENABLED=0 GOOS=linux go build -o /simple-go-app
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/build/mainapp ./cmd/main.go
 
 # Optional:
 # To bind to a TCP port, runtime parameters must be supplied to the docker command.
@@ -25,4 +25,4 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /simple-go-app
 EXPOSE 3000
 
 # Run
-CMD ["/simple-go-app"]
+CMD ["/app/build/mainapp"]
